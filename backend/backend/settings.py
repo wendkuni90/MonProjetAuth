@@ -148,3 +148,5 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7), # Durée du refresh token (7 jours)
     'AUTH_HEADER_TYPES': ('Bearer',),           # Type d'authentification
 }
+
+AUTH_USER_MODEL = 'users.CustomUser'
