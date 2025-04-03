@@ -146,6 +146,8 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # Durée du token (1 jour)
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7), # Durée du refresh token (7 jours)
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
     'AUTH_HEADER_TYPES': ('Bearer',),           # Type d'authentification
 }
 
