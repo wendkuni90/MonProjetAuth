@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += ['corsheaders']
+INSTALLED_APPS += ['rest_framework_simplejwt.token_blacklist']
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', # Ajout du middleware CORS
