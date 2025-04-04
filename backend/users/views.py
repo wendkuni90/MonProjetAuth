@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
 from .models import CustomUser
-from .serializers import RegisterSerializer, LoginSerializer
+from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class RegisterView(generics.CreateAPIView):
@@ -23,7 +23,7 @@ class RegisterView(generics.CreateAPIView):
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
-    
+
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -39,7 +39,14 @@ class LogoutView(APIView):
             return Response({"message": "Déconnexion réussie."}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": "Token invalide ou déjà expiré."}, status=status.HTTP_400_BAD_REQUEST)
-        
+
+class UserProfileView(APIView):
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response({serializer.data}, status=status.HTTP_200_OK)
+
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]
 

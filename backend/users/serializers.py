@@ -34,3 +34,8 @@ class LoginSerializer(serializers.Serializer):
             "access_token": str(tokens.access_token),
             "refresh_token": str(tokens),
         }
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'username', 'email')
