@@ -15,7 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import android.util.Log;
+import com.elieltech.authenticator.utils.SharedPrefManager;
 import com.elieltech.authenticator.R;
 import com.elieltech.authenticator.api.RetrofitClient;
 import com.elieltech.authenticator.api.ApiService;
@@ -49,8 +50,6 @@ public class ConnexionActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         btnConnexion = findViewById(R.id.btn_connexion);
-
-        sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
 
         btnConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,14 +86,15 @@ public class ConnexionActivity extends AppCompatActivity {
                     String refresh = response.body().getRefresh();
 
                     // Stocker les tokens
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("access_token", access);
-                    editor.putString("refresh_token", refresh);
-                    editor.apply();
+                    SharedPrefManager prefManager = new SharedPrefManager(ConnexionActivity.this);
+                    prefManager.saveTokens(access, refresh);
+                    Log.d("LoginResponse", "Access Token: " + access);
+                    Log.d("LoginResponse", "Refresh Token: " + refresh);
+                    Log.d("LoginResponse", "Réponse du backend: " + response.body().toString());
 
                     Toast.makeText(ConnexionActivity.this, "Connexion réussie !", Toast.LENGTH_SHORT).show();
 
-                    // Rediriger vers une autre la page d'accueil
+                    // Rediriger vers la page d'accueil
                     Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

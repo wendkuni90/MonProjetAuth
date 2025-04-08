@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp"
-    android:background="@drawable/inscription_background">
+    android:background="@drawable/profile_background">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
