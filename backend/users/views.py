@@ -45,7 +45,7 @@ class UserProfileView(APIView):
     def get(self, request):
         user = request.user
         serializer = UserSerializer(user)
-        return Response({serializer.data}, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]
